@@ -23,7 +23,7 @@ const exampleUser: User = {
 const Swipe = () => {
   return (
     <div
-      style={{ position: "relative", minHeight: "100vh", marginBottom: 100 }}
+      style={{ position: "relative", minHeight: "100vh", marginBottom: 144 }}
     >
       <Searchbar />
       <UserProfile user={exampleUser} />
@@ -34,7 +34,7 @@ const Swipe = () => {
         radius="xl"
         style={{
           position: "fixed",
-          bottom: rem(128),
+          bottom: rem(80),
           left: rem(16),
           zIndex: 1000,
           boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
@@ -49,7 +49,7 @@ const Swipe = () => {
         radius="xl"
         style={{
           position: "fixed",
-          bottom: rem(128),
+          bottom: rem(80),
           right: rem(16),
           zIndex: 1000,
           boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",

@@ -78,7 +78,7 @@ const AppLayout = () => {
       <AppShell.Main
         bg="#f1f1f1"
         mb={{
-          base: 100,
+          base: 32,
           sm: 0,
         }}
       >
