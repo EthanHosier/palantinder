@@ -86,7 +86,7 @@ const AppLayout = () => {
       </AppShell.Main>
 
       <AppShell.Footer
-        p="xs"
+        p={0}
         hiddenFrom="sm"
         style={{ backgroundColor: "#000", borderTop: "none" }}
       >
@@ -98,10 +98,11 @@ const AppLayout = () => {
           styles={() => ({
             root: {
               backgroundColor: "#000",
+              marginBottom: -2,
             },
             list: {
               gap: 0,
-              paddingBottom: rem(0),
+              padding: 0,
             },
             tab: {
               flex: 1,

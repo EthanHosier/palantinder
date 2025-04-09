@@ -1,4 +1,5 @@
-import { Stack, Text } from "@mantine/core";
+import { Stack, Text, Group, ActionIcon } from "@mantine/core";
+import { IconHome, IconHeart, IconUser } from "@tabler/icons-react";
 import { User } from "../types";
 import UserProfile from "./swipe/_components/UserProfile";
 
@@ -20,10 +21,35 @@ const myUser: User = {
 
 const Profile = () => {
   return (
-    <Stack>
-      <Text style={{ fontSize: 28, fontWeight: 600 }}>Profile</Text>
-      <UserProfile user={myUser} />
-    </Stack>
+    <>
+      <Stack>
+        <Text style={{ fontSize: 28, fontWeight: 600 }}>Profile</Text>
+        <UserProfile user={myUser} />
+      </Stack>
+
+      <Group
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: "1rem",
+          justifyContent: "space-around",
+          backgroundColor: "white",
+          borderTop: "1px solid #eee",
+        }}
+      >
+        <ActionIcon variant="subtle" size="lg">
+          <IconHome size={24} />
+        </ActionIcon>
+        <ActionIcon variant="subtle" size="lg">
+          <IconHeart size={24} />
+        </ActionIcon>
+        <ActionIcon variant="subtle" size="lg">
+          <IconUser size={24} />
+        </ActionIcon>
+      </Group>
+    </>
   );
 };
 
