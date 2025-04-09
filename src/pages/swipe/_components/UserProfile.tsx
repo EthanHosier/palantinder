@@ -66,7 +66,7 @@ const UserProfile = ({ user }: { user: User }) => {
             display: "block",
             aspectRatio: "1/1",
             objectFit: "cover",
-            borderRadius: "16px",
+            borderRadius: "8px",
             maxWidth: "400px",
           }}
         />
