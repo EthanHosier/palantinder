@@ -1,6 +1,7 @@
 import React from "react";
 import Profile from "./_components/Profile";
 import { User } from "../../types";
+import Searchbar from "./_components/Searchbar";
 
 const exampleUser: User = {
   name: "John Doe",
@@ -18,7 +19,12 @@ const exampleUser: User = {
 };
 
 const Swipe = () => {
-  return <Profile user={exampleUser} />;
+  return (
+    <>
+      <Searchbar />
+      <Profile user={exampleUser} />
+    </>
+  );
 };
 
 export default Swipe;

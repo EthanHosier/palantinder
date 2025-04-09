@@ -19,4 +19,7 @@ export const theme = createTheme({
   },
 
   primaryColor: "myColor",
+  radius: {
+    full: "9999px",
+  },
 });

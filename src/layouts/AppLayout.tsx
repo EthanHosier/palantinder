@@ -75,7 +75,13 @@ const AppLayout = () => {
     >
       <AppShell.Navbar p="md">{NavbarContent}</AppShell.Navbar>
 
-      <AppShell.Main>
+      <AppShell.Main
+        bg="#f1f1f1"
+        mb={{
+          base: 72,
+          sm: 0,
+        }}
+      >
         <Outlet />
       </AppShell.Main>
 

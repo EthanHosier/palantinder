@@ -10,7 +10,15 @@ import {
   rem,
   Box,
 } from "@mantine/core";
-import { IconDots, IconHeart } from "@tabler/icons-react";
+import {
+  IconDots,
+  IconHeart,
+  IconBriefcase,
+  IconCalendar,
+  IconMapPin,
+  IconUsers,
+  IconUser,
+} from "@tabler/icons-react";
 
 const Profile = ({ user }: { user: User }) => {
   return (
@@ -22,6 +30,7 @@ const Profile = ({ user }: { user: User }) => {
             {user.name.split(" ")[0]}
           </Text>
           <Badge
+            bg="transparent"
             variant="dot"
             color="green"
             size="sm"
@@ -94,6 +103,82 @@ const Profile = ({ user }: { user: User }) => {
             }}
           />
         </ActionIcon>
+      </Box>
+
+      {/* Prompt Card */}
+      <Box mt="md">
+        <Card radius="md" p="md">
+          <Stack gap="xs" py="lg">
+            <Text size="sm" fw={600}>
+              You guys should talk about
+            </Text>
+            <Text size="24px" fw={400} lh="32px">
+              Your shared passion for football{" "}
+            </Text>
+          </Stack>
+        </Card>
+      </Box>
+
+      {/* Profile Details */}
+      <Box mt="md">
+        <Card radius="md" p="md">
+          <Stack gap="md">
+            <Group>
+              <IconBriefcase
+                style={{ width: rem(20), height: rem(20) }}
+                color="var(--mantine-color-gray-6)"
+              />
+              <Text>{user.role}</Text>
+            </Group>
+            <Group>
+              <IconCalendar
+                style={{ width: rem(20), height: rem(20) }}
+                color="var(--mantine-color-gray-6)"
+              />
+              <Text>{user.startDate}</Text>
+            </Group>
+            <Group>
+              <IconMapPin
+                style={{ width: rem(20), height: rem(20) }}
+                color="var(--mantine-color-gray-6)"
+              />
+              <Text>{user.location}</Text>
+            </Group>
+            <Group align="flex-start">
+              <IconHeart
+                style={{ width: rem(20), height: rem(20) }}
+                color="var(--mantine-color-gray-6)"
+              />
+              <Group gap="xs" wrap="wrap">
+                {user.interests?.map((interest, index) => (
+                  <Badge key={index} variant="light">
+                    {interest}
+                  </Badge>
+                ))}
+              </Group>
+            </Group>
+            <Group align="flex-start">
+              <IconUsers
+                style={{ width: rem(20), height: rem(20) }}
+                color="var(--mantine-color-gray-6)"
+              />
+              <Group gap="xs" wrap="wrap">
+                {user.affinityGroups?.map((group, index) => (
+                  <Badge key={index} variant="light">
+                    {group}
+                  </Badge>
+                ))}
+              </Group>
+            </Group>
+            <Group>
+              <IconUser
+                style={{ width: rem(20), height: rem(20) }}
+                color="var(--mantine-color-gray-6)"
+              />
+              <Text>{user.lead}</Text>
+            </Group>
+          </Stack>
+        </Card>
       </Box>
     </Stack>
   );
