@@ -31,7 +31,7 @@ const Swipe = () => {
         variant="filled"
         color="white"
         size={72}
-        radius="xl"
+        radius={9999}
         style={{
           position: "fixed",
           bottom: rem(80),
@@ -41,12 +41,12 @@ const Swipe = () => {
           padding: rem(16),
         }}
       >
-        <IconX size={rem(16)} color="black" />
+        <IconX size={rem(32)} color="black" />
       </ActionIcon>
       <ActionIcon
         variant="filled"
         size={72}
-        radius="xl"
+        radius={99999}
         style={{
           position: "fixed",
           bottom: rem(80),
@@ -56,7 +56,7 @@ const Swipe = () => {
           padding: rem(16),
         }}
       >
-        <IconHeart size={rem(16)} color="white" />
+        <IconHeart size={rem(32)} color="white" />
       </ActionIcon>
     </div>
   );
