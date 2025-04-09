@@ -10,8 +10,7 @@ import {
 } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-import React from "react";
-import { User } from "src/types";
+import { User } from "../../types";
 
 const users: User[] = [
   {

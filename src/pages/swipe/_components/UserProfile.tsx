@@ -1,4 +1,4 @@
-import { User } from "src/types";
+import { User } from "../../../types";
 import {
   Card,
   Text,
@@ -163,7 +163,7 @@ const UserProfile = ({ user }: { user: User }) => {
                 color="var(--mantine-color-gray-6)"
               />
               <Group gap="xs" wrap="wrap">
-                {user.interests?.map((interest, index) => (
+                {user.interests?.map((interest: string, index: number) => (
                   <Badge key={index} variant="light">
                     {interest}
                   </Badge>

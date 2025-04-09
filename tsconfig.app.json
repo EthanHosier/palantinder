@@ -20,13 +20,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-    
-    /* Paths for shared types */
-    "baseUrl": ".",
-    "paths": {
-      "@shared/*": ["../shared/*"]
-    }
+    "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "../shared/**/*.ts"]
+  "include": ["src"]
 }

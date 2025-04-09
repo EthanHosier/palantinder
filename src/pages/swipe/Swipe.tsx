@@ -1,4 +1,3 @@
-import React from "react";
 import UserProfile from "./_components/UserProfile";
 import { User } from "../../types";
 import Searchbar from "./_components/Searchbar";

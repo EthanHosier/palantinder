@@ -95,7 +95,7 @@ const AppLayout = () => {
           onChange={(value) => navigate(value || "/")}
           variant="default"
           radius="xl"
-          styles={(theme) => ({
+          styles={() => ({
             root: {
               backgroundColor: "#000",
             },
