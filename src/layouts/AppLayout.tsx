@@ -101,7 +101,7 @@ const AppLayout = () => {
             },
             list: {
               gap: 0,
-              paddingBottom: rem(24),
+              paddingBottom: rem(0),
             },
             tab: {
               flex: 1,

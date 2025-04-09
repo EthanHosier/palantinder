@@ -176,7 +176,7 @@ const UserProfile = ({ user }: { user: User }) => {
                 color="var(--mantine-color-gray-6)"
               />
               <Group gap="xs" wrap="wrap">
-                {user.affinityGroups?.map((group, index) => (
+                {user.affinityGroups?.map((group: string, index: number) => (
                   <Badge key={index} variant="light">
                     {group}
                   </Badge>
