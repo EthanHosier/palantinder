@@ -1,4 +1,5 @@
 import { createTheme, MantineColorsTuple } from "@mantine/core";
+import "./styles/fonts.css";
 
 const myColor: MantineColorsTuple = [
   "#fcf1fe",
@@ -21,5 +22,9 @@ export const theme = createTheme({
   primaryColor: "myColor",
   radius: {
     full: "9999px",
+  },
+  fontFamily: "var(--font-poppins)",
+  headings: {
+    fontFamily: "var(--font-poppins)",
   },
 });
