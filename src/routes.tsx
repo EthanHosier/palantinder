@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedLayout from "./layouts/ProtectedLayout";
-import Swipe from "./pages/Swipe";
+import Swipe from "./pages/swipe/Swipe";
 import Auth from "./pages/Auth";
+import AppLayout from "./layouts/AppLayout";
 export const router = createBrowserRouter([
   {
     path: "/auth",
@@ -13,7 +14,13 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Swipe />,
+        element: <AppLayout />,
+        children: [
+          {
+            path: "/",
+            element: <Swipe />,
+          },
+        ],
       },
     ],
   },
