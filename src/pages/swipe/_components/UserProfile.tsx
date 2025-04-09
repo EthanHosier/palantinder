@@ -1,4 +1,3 @@
-import React from "react";
 import { User } from "src/types";
 import {
   Card,
@@ -18,9 +17,10 @@ import {
   IconMapPin,
   IconUsers,
   IconUser,
+  IconQuote,
 } from "@tabler/icons-react";
 
-const Profile = ({ user }: { user: User }) => {
+const UserProfile = ({ user }: { user: User }) => {
   return (
     <Stack gap={0}>
       {/* Header with name and status */}
@@ -67,6 +67,7 @@ const Profile = ({ user }: { user: User }) => {
             aspectRatio: "1/1",
             objectFit: "cover",
             borderRadius: "16px",
+            maxWidth: "400px",
           }}
         />
         <ActionIcon
@@ -109,9 +110,21 @@ const Profile = ({ user }: { user: User }) => {
       <Box mt="md">
         <Card radius="md" p="md">
           <Stack gap="xs" py="lg">
-            <Text size="sm" fw={600}>
-              You guys should talk about
-            </Text>
+            <Group gap="xs">
+              <div
+                style={{
+                  backgroundColor: "var(--mantine-color-gray-1)",
+                  padding: rem(8),
+                  borderRadius: 99999,
+                  height: rem(32),
+                }}
+              >
+                <IconQuote size={rem(20)} />
+              </div>
+              <Text size="sm" fw={600}>
+                You guys should talk about
+              </Text>
+            </Group>
             <Text size="24px" fw={400} lh="32px">
               Your shared passion for football{" "}
             </Text>
@@ -184,4 +197,4 @@ const Profile = ({ user }: { user: User }) => {
   );
 };
 
-export default Profile;
+export default UserProfile;

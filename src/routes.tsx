@@ -3,6 +3,8 @@ import ProtectedLayout from "./layouts/ProtectedLayout";
 import Swipe from "./pages/swipe/Swipe";
 import Auth from "./pages/Auth";
 import AppLayout from "./layouts/AppLayout";
+import Profile from "./pages/Profile";
+import AllLikes from "./pages/likes/AllLikes";
 export const router = createBrowserRouter([
   {
     path: "/auth",
@@ -19,6 +21,14 @@ export const router = createBrowserRouter([
           {
             path: "/",
             element: <Swipe />,
+          },
+          {
+            path: "/profile",
+            element: <Profile />,
+          },
+          {
+            path: "/likes",
+            element: <AllLikes />,
           },
         ],
       },

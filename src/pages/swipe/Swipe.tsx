@@ -1,9 +1,12 @@
 import React from "react";
-import Profile from "./_components/Profile";
+import UserProfile from "./_components/UserProfile";
 import { User } from "../../types";
 import Searchbar from "./_components/Searchbar";
+import { ActionIcon, rem } from "@mantine/core";
+import { IconHeart, IconX } from "@tabler/icons-react";
 
 const exampleUser: User = {
+  id: "1",
   name: "John Doe",
   role: "Software Engineer",
   startDate: "2021-01-01",
@@ -20,10 +23,43 @@ const exampleUser: User = {
 
 const Swipe = () => {
   return (
-    <>
+    <div
+      style={{ position: "relative", minHeight: "100vh", marginBottom: 100 }}
+    >
       <Searchbar />
-      <Profile user={exampleUser} />
-    </>
+      <UserProfile user={exampleUser} />
+      <ActionIcon
+        variant="filled"
+        color="white"
+        size={72}
+        radius="xl"
+        style={{
+          position: "fixed",
+          bottom: rem(128),
+          left: rem(16),
+          zIndex: 1000,
+          boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
+          padding: rem(16),
+        }}
+      >
+        <IconX size={rem(16)} color="black" />
+      </ActionIcon>
+      <ActionIcon
+        variant="filled"
+        size={72}
+        radius="xl"
+        style={{
+          position: "fixed",
+          bottom: rem(128),
+          right: rem(16),
+          zIndex: 1000,
+          boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
+          padding: rem(16),
+        }}
+      >
+        <IconHeart size={rem(16)} color="white" />
+      </ActionIcon>
+    </div>
   );
 };
 

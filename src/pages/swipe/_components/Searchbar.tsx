@@ -8,6 +8,7 @@ const Searchbar = () => {
       <Box>
         {/* Search input */}
         <TextInput
+          size="lg"
           placeholder="Search colleagues..."
           styles={{
             input: {

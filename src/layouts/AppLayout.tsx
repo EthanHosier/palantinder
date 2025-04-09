@@ -14,8 +14,8 @@ import { IconHome, IconHeart, IconUser } from "@tabler/icons-react";
 
 const navItems = [
   { icon: IconHome, label: "Discover", path: "/" },
-  { icon: IconHeart, label: "Likes", path: "#" },
-  { icon: IconUser, label: "Profile", path: "#" },
+  { icon: IconHeart, label: "Likes", path: "/likes" },
+  { icon: IconUser, label: "Profile", path: "/profile" },
 ];
 
 const AppLayout = () => {
@@ -78,7 +78,7 @@ const AppLayout = () => {
       <AppShell.Main
         bg="#f1f1f1"
         mb={{
-          base: 72,
+          base: 100,
           sm: 0,
         }}
       >
