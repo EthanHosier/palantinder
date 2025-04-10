@@ -1,4 +1,4 @@
-import { Stack, Text, Group, ActionIcon } from "@mantine/core";
+import { Stack, Text, Group, ActionIcon, Loader } from "@mantine/core";
 import { IconHome, IconHeart, IconUser } from "@tabler/icons-react";
 import { User } from "../types";
 import UserProfile from "./swipe/_components/UserProfile";
@@ -20,8 +20,22 @@ const myUser: User = {
     "https://media.istockphoto.com/id/1410538853/photo/young-man-in-the-public-park.jpg?s=612x612&w=0&k=20&c=EtRJGnNOFPJ2HniBSLWKzsL9Xf7GHinHd5y2Tx3da0E=",
 };
 
+
+
 const Profile = () => {
   const { data, isLoading, error } = useGetPersonFromName('Ethan Hosier');
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <Text>Error: {error.message}</Text>;
+  }
+
+  if (!data) {
+    return <Text>No data</Text>;
+  }
 
   console.log({data})
   console.log({isLoading})
@@ -30,7 +44,19 @@ const Profile = () => {
     <>
       <Stack>
         <Text style={{ fontSize: 28, fontWeight: 600 }}>Profile</Text>
-        <UserProfile user={myUser} />
+        <UserProfile user={{
+          id: data.id,
+          name: data.name,
+          role: data.role,
+          startDate: data.startDate,
+          location: data.location,
+          lead: data.lead,
+          slackLink: data.slackLink ?? '',
+          about: data.aboutMe,
+          interests: data.interests.split(';'),
+          affinityGroups: data.affinityGroups.split(';'),
+          imageUrl: data.imageUrl,
+        }} />
       </Stack>
 
       <Group
