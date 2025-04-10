@@ -2,7 +2,7 @@ import { Stack, Text, Group, ActionIcon, Loader } from "@mantine/core";
 import { IconHome, IconHeart, IconUser } from "@tabler/icons-react";
 import { User } from "../types";
 import UserProfile from "./swipe/_components/UserProfile";
-import { useGetPersonFromName } from "../lib/queries";
+import { useGetPersonFromName, useGetSimilarPersonsTo } from "../lib/queries";
 
 const myUser: User = {
   id: "1",
@@ -24,6 +24,11 @@ const myUser: User = {
 
 const Profile = () => {
   const { data, isLoading, error } = useGetPersonFromName('Ethan Hosier');
+
+  const { data: similarPersonsTo, isLoading: similarPersonsToLoading, error: similarPersonsToError } = useGetSimilarPersonsTo(data?.id ?? '');
+  console.log({similarPersonsTo})
+  console.log({similarPersonsToLoading})
+  console.log({similarPersonsToError})
 
   if (isLoading) {
     return <Loader />;
