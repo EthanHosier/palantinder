@@ -2,6 +2,7 @@ import { Stack, Text, Group, ActionIcon } from "@mantine/core";
 import { IconHome, IconHeart, IconUser } from "@tabler/icons-react";
 import { User } from "../types";
 import UserProfile from "./swipe/_components/UserProfile";
+import { useGetPersonFromName } from "../lib/queries";
 
 const myUser: User = {
   id: "1",
@@ -20,6 +21,11 @@ const myUser: User = {
 };
 
 const Profile = () => {
+  const { data, isLoading, error } = useGetPersonFromName('Ethan Hosier');
+
+  console.log({data})
+  console.log({isLoading})
+  console.log({error})
   return (
     <>
       <Stack>

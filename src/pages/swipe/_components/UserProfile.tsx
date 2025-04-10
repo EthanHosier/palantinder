@@ -50,7 +50,7 @@ const UserProfile = ({ user }: { user: User }) => {
         </Group>
         <Group gap="xs">
           <ActionIcon variant="subtle" color="gray" size="md">
-            <IconDots style={{ width: rem(20), height: rem(20) }} />
+            <IconDots size={20} />
           </ActionIcon>
         </Group>
       </Group>
@@ -96,9 +96,8 @@ const UserProfile = ({ user }: { user: User }) => {
           }}
         >
           <IconHeart
+            size={24}
             style={{
-              width: rem(24),
-              height: rem(24),
               stroke: "2px",
               color: "var(--mantine-color-myColor-5)",
             }}
@@ -119,7 +118,7 @@ const UserProfile = ({ user }: { user: User }) => {
                   height: rem(32),
                 }}
               >
-                <IconQuote size={rem(20)} />
+                <IconQuote size={20} />
               </div>
               <Text size="sm" fw={600}>
                 You guys should talk about
@@ -137,31 +136,19 @@ const UserProfile = ({ user }: { user: User }) => {
         <Card radius="md" p="md">
           <Stack gap="md">
             <Group>
-              <IconBriefcase
-                style={{ width: rem(20), height: rem(20) }}
-                color="var(--mantine-color-gray-6)"
-              />
+              <IconBriefcase size={20} color="var(--mantine-color-gray-6)" />
               <Text>{user.role}</Text>
             </Group>
             <Group>
-              <IconCalendar
-                style={{ width: rem(20), height: rem(20) }}
-                color="var(--mantine-color-gray-6)"
-              />
+              <IconCalendar size={20} color="var(--mantine-color-gray-6)" />
               <Text>{user.startDate}</Text>
             </Group>
             <Group>
-              <IconMapPin
-                style={{ width: rem(20), height: rem(20) }}
-                color="var(--mantine-color-gray-6)"
-              />
+              <IconMapPin size={20} color="var(--mantine-color-gray-6)" />
               <Text>{user.location}</Text>
             </Group>
             <Group align="flex-start">
-              <IconHeart
-                style={{ width: rem(20), height: rem(20) }}
-                color="var(--mantine-color-gray-6)"
-              />
+              <IconHeart size={20} color="var(--mantine-color-gray-6)" />
               <Group gap="xs" wrap="wrap">
                 {user.interests?.map((interest: string, index: number) => (
                   <Badge key={index} variant="light">
@@ -171,10 +158,7 @@ const UserProfile = ({ user }: { user: User }) => {
               </Group>
             </Group>
             <Group align="flex-start">
-              <IconUsers
-                style={{ width: rem(20), height: rem(20) }}
-                color="var(--mantine-color-gray-6)"
-              />
+              <IconUsers size={20} color="var(--mantine-color-gray-6)" />
               <Group gap="xs" wrap="wrap">
                 {user.affinityGroups?.map((group: string, index: number) => (
                   <Badge key={index} variant="light">
@@ -184,10 +168,7 @@ const UserProfile = ({ user }: { user: User }) => {
               </Group>
             </Group>
             <Group>
-              <IconUser
-                style={{ width: rem(20), height: rem(20) }}
-                color="var(--mantine-color-gray-6)"
-              />
+              <IconUser size={20} color="var(--mantine-color-gray-6)" />
               <Text>{user.lead}</Text>
             </Group>
           </Stack>

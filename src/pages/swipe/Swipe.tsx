@@ -3,6 +3,9 @@ import { User } from "../../types";
 import Searchbar from "./_components/Searchbar";
 import { ActionIcon, rem } from "@mantine/core";
 import { IconHeart, IconX } from "@tabler/icons-react";
+import { useEffect } from "react";
+import { auth, client } from "../../lib/osdk";
+import { symbolClientContext } from "@osdk/shared.client2";
 
 const exampleUser: User = {
   id: "1",
@@ -21,6 +24,14 @@ const exampleUser: User = {
 };
 
 const Swipe = () => {
+  useEffect(() => {
+   console.log({auth})
+   console.log(auth.getTokenOrUndefined()!)
+   
+   const cc = client[symbolClientContext]
+   console.log({cc})
+  }, [auth]);
+
   return (
     <div
       style={{ position: "relative", minHeight: "100vh", marginBottom: 144 }}
@@ -41,7 +52,7 @@ const Swipe = () => {
           padding: rem(16),
         }}
       >
-        <IconX size={rem(16)} color="black" />
+        <IconX size={16} color="black" />
       </ActionIcon>
       <ActionIcon
         variant="filled"
@@ -56,7 +67,7 @@ const Swipe = () => {
           padding: rem(16),
         }}
       >
-        <IconHeart size={rem(16)} color="white" />
+        <IconHeart size={16} color="white" />
       </ActionIcon>
     </div>
   );

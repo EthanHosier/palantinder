@@ -33,7 +33,7 @@ const AppLayout = () => {
           styles={{
             root: (theme: MantineTheme) => ({
               color: theme.black,
-              "&[data-active]": {
+              "&[dataActive]": {
                 backgroundColor: theme.colors.gray[1],
                 borderRadius: theme.radius.sm,
               },
@@ -110,7 +110,7 @@ const AppLayout = () => {
               color: "rgba(255, 255, 255, 0.5)",
               backgroundColor: "transparent",
               border: "none",
-              "&[data-active]": {
+              "&[dataActive]": {
                 backgroundColor: "transparent",
                 color: "white",
                 border: "none",
