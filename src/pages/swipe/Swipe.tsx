@@ -42,7 +42,7 @@ const Swipe = () => {
         variant="filled"
         color="white"
         size={72}
-        radius="xl"
+        radius={9999}
         style={{
           position: "fixed",
           bottom: rem(80),
@@ -57,7 +57,7 @@ const Swipe = () => {
       <ActionIcon
         variant="filled"
         size={72}
-        radius="xl"
+        radius={99999}
         style={{
           position: "fixed",
           bottom: rem(80),
