@@ -1,43 +1,54 @@
 import UserProfile from "./_components/UserProfile";
 import { User } from "../../types";
 import Searchbar from "./_components/Searchbar";
-import { ActionIcon, rem } from "@mantine/core";
+import { ActionIcon, Loader, rem, Text } from "@mantine/core";
 import { IconHeart, IconX } from "@tabler/icons-react";
-import { useEffect } from "react";
-import { auth, client } from "../../lib/osdk";
-import { symbolClientContext } from "@osdk/shared.client2";
-
-const exampleUser: User = {
-  id: "1",
-  name: "John Doe",
-  role: "Software Engineer",
-  startDate: "2021-01-01",
-  location: "San Francisco",
-  lead: "Jane Smith",
-  slackLink: "https://slack.com/john-doe",
-  about:
-    "I'm a software engineer with a passion for building scalable and efficient systems.",
-  interests: ["React", "Node.js", "Docker"],
-  affinityGroups: ["Engineering", "React"],
-  imageUrl:
-    "https://www.perfocal.com/blog/content/images/2021/01/Perfocal_17-11-2019_TYWFAQ_100_standard-3.jpg",
-};
+import { useState } from "react";
+import { useGetPersonFromName, useGetSimilarPersonsTo } from "../../lib/queries";
+import { queryClient } from "../../lib/utils";
 
 const Swipe = () => {
-  useEffect(() => {
-   console.log({auth})
-   console.log(auth.getTokenOrUndefined()!)
-   
-   const cc = client[symbolClientContext]
-   console.log({cc})
-  }, [auth]);
+  const [index, setIndex] = useState(0);
+  const { data: currentPerson, isLoading: currentPersonLoading, error: currentPersonError } = useGetPersonFromName("Ethan Hosier");
+  const { data: similarPersonsTo, isLoading: similarPersonsToLoading, isFetching: similarPersonsToFetching, error: similarPersonsToError, refetch: refetchSimilarPersonsTo } = useGetSimilarPersonsTo(currentPerson?.id ?? '');
+  const currentlyShownPerson = similarPersonsTo?.[index];
 
+
+  const onSwipe = (reaction: 'like' | 'dislike') => {
+    const nextIndex = index + 1;
+    if (nextIndex >= (similarPersonsTo?.length ?? 0)) {
+      refetchSimilarPersonsTo();
+      setIndex(0);
+      return;
+    }
+    setIndex(nextIndex);
+  }
+
+  if (currentPersonLoading || similarPersonsToLoading || similarPersonsToFetching) {
+    return <Loader />;
+  }
+
+  if (currentPersonError || similarPersonsToError) {
+    return <Text>Error: {currentPersonError?.message || similarPersonsToError?.message}</Text>;
+  }
   return (
     <div
       style={{ position: "relative", minHeight: "100vh", marginBottom: 144 }}
     >
       <Searchbar />
-      <UserProfile user={exampleUser} />
+      <UserProfile user={{
+        id: currentlyShownPerson?.id ?? '',
+        name: currentlyShownPerson?.name ?? '',
+        role: currentlyShownPerson?.role ?? '',
+        startDate: currentlyShownPerson?.startDate ?? '',
+        location: currentlyShownPerson?.location ?? '',
+        lead: currentlyShownPerson?.lead ?? '',
+        slackLink: currentlyShownPerson?.slackLink ?? '',
+        about: currentlyShownPerson?.aboutMe ?? '',
+        interests: currentlyShownPerson?.interests?.split(';') ?? [],
+        affinityGroups: currentlyShownPerson?.affinityGroups?.split(';') ?? [],
+        imageUrl: currentlyShownPerson?.imageUrl ?? '',
+      } as User} />
       <ActionIcon
         variant="filled"
         color="white"
@@ -51,6 +62,7 @@ const Swipe = () => {
           boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
           padding: rem(16),
         }}
+        onClick={() => onSwipe('dislike')}
       >
         <IconX size={16} color="black" />
       </ActionIcon>
@@ -66,6 +78,7 @@ const Swipe = () => {
           boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
           padding: rem(16),
         }}
+        onClick={() => onSwipe('like')}
       >
         <IconHeart size={16} color="white" />
       </ActionIcon>
