@@ -9,6 +9,7 @@ import {
   Stack,
   Tabs,
   MantineTheme,
+  Container,
 } from "@mantine/core";
 import { IconHome, IconHeart, IconUser } from "@tabler/icons-react";
 
@@ -22,130 +23,97 @@ const AppLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const NavbarContent = (
-    <Stack gap="sm">
-      {navItems.map((item) => (
-        <UnstyledButton
-          key={item.path}
-          onClick={() => navigate(item.path)}
-          style={{ padding: rem(12) }}
-          data-active={location.pathname === item.path || undefined}
-          styles={{
-            root: (theme: MantineTheme) => ({
-              color: theme.black,
-              "&[dataActive]": {
-                backgroundColor: theme.colors.gray[1],
-                borderRadius: theme.radius.sm,
-              },
-              "&:hover": {
-                backgroundColor: theme.colors.gray[0],
-              },
-            }),
-          }}
-        >
-          <Group>
-            <item.icon size={24} style={{ color: "rgba(0, 0, 0, 0.7)" }} />
-            <Text size="sm" c="dark">
-              {item.label}
-            </Text>
-          </Group>
-        </UnstyledButton>
-      ))}
-    </Stack>
-  );
-
   return (
     <AppShell
       padding="md"
       header={{ height: 0 }}
-      navbar={{
-        width: 250,
-        breakpoint: "sm",
-        collapsed: { mobile: true },
-      }}
       styles={{
         main: {
-          backgroundColor: "white",
-        },
-        navbar: {
-          backgroundColor: "white",
-          borderRight: "1px solid rgba(255, 255, 255, 0.1)",
+          backgroundColor: "#f1f1f1",
         },
       }}
     >
-      <AppShell.Navbar p="md">{NavbarContent}</AppShell.Navbar>
-
       <AppShell.Main
         bg="#f1f1f1"
-        mb={{
-          base: 32,
-          sm: 0,
-        }}
+        mb={32}
       >
-        <Outlet />
+        <Container size="xs" px="xs">
+          <Outlet />
+        </Container>
       </AppShell.Main>
 
       <AppShell.Footer
         p={0}
-        hiddenFrom="sm"
-        style={{ backgroundColor: "#000", borderTop: "none" }}
+        style={{ 
+          borderTop: "none",
+          backgroundColor: "#f1f1f1"
+        }}
       >
-        <Tabs
-          value={location.pathname}
-          onChange={(value) => navigate(value || "/")}
-          variant="default"
-          radius="xl"
-          styles={() => ({
-            root: {
-              backgroundColor: "#000",
-              marginBottom: -2,
-            },
-            list: {
-              gap: 0,
-              padding: 0,
-            },
-            tab: {
-              flex: 1,
-              padding: rem(12),
-              color: "rgba(255, 255, 255, 0.5)",
-              backgroundColor: "transparent",
-              border: "none",
-              "&[dataActive]": {
-                backgroundColor: "transparent",
-                color: "white",
-                border: "none",
-                textDecoration: "none",
-              },
-              "&:hover": {
-                backgroundColor: "transparent",
-                color: "white",
-                border: "none",
-                textDecoration: "none",
-              },
-            },
-          })}
+        <Container 
+          size="xs" 
+          px="xs" 
+          style={{ 
+            backgroundColor: "#000",
+            margin: "0 auto"
+          }}
         >
-          <Tabs.List>
-            {navItems.map((item) => (
-              <Tabs.Tab
-                mb={4}
-                key={item.path}
-                value={item.path}
-                leftSection={
-                  <item.icon
-                    size={28}
-                    style={{
-                      color:
-                        location.pathname === item.path
-                          ? "white"
-                          : "rgba(255, 255, 255, 0.5)",
-                    }}
-                  />
-                }
-              />
-            ))}
-          </Tabs.List>
-        </Tabs>
+          <Tabs
+            value={location.pathname}
+            onChange={(value) => navigate(value || "/")}
+            variant="default"
+            radius="xl"
+            styles={() => ({
+              root: {
+                backgroundColor: "#000",
+                marginBottom: -2,
+              },
+              list: {
+                gap: 0,
+                padding: 0,
+              },
+              tab: {
+                flex: 1,
+                padding: rem(12),
+                color: "rgba(255, 255, 255, 0.5)",
+                backgroundColor: "transparent",
+                border: "none",
+                "&[dataActive]": {
+                  backgroundColor: "transparent",
+                  color: "white",
+                  border: "none",
+                  textDecoration: "none",
+                },
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  color: "white",
+                  border: "none",
+                  textDecoration: "none",
+                },
+              },
+            })}
+          >
+            <Tabs.List>
+              {navItems.map((item) => (
+                <Tabs.Tab
+                  mb={4}
+                  key={item.path}
+                  value={item.path}
+                  leftSection={
+                    <item.icon
+                      size={28}
+                      style={{
+                        color:
+                          location.pathname === item.path
+                            ? "white"
+                            : "rgba(255, 255, 255, 0.5)",
+                      }}
+                    />
+                  }
+                />
+              ))}
+            </Tabs.List>
+          </Tabs>
+        </Container>
       </AppShell.Footer>
     </AppShell>
   );

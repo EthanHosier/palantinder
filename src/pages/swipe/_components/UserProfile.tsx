@@ -95,58 +95,60 @@ const UserProfile = ({ user }: { user: User }) => {
       </Group>
 
       {/* Main profile image */}
-      <Box pos="relative">
-        <img
-          src={user.imageUrl}
-          alt={user.name}
-          style={{
-            width: "100%",
-            height: "auto",
-            display: "block",
-            aspectRatio: "1/1",
-            objectFit: "cover",
-            borderRadius: "8px",
-            maxWidth: "400px",
-          }}
-        />
-        <ActionIcon
-          variant="filled"
-          color="white"
-          size="xl"
-          radius="xl"
-          style={{
-            position: "absolute",
-            bottom: rem(16),
-            right: rem(16),
-            border: "2px solid white",
-          }}
-          styles={{
-            root: {
-              backgroundColor: "white !important",
-              transition: "transform 0.2s",
-              "&:active": {
-                transform: "scale(0.95)",
-                backgroundColor: "white !important",
-              },
-              "&:hover": {
-                backgroundColor: "white !important",
-              },
-            },
-          }}
-        >
-          <IconHeart
-            size={24}
+      <Box pos="relative" style={{ display: 'flex', justifyContent: 'center' }}>
+        <Box pos="relative">
+          <img
+            src={user.imageUrl}
+            alt={user.name}
             style={{
-              stroke: "2px",
-              color: "var(--mantine-color-myColor-5)",
+              width: "100%",
+              height: "auto",
+              display: "block",
+              aspectRatio: "1/1",
+              objectFit: "cover",
+              borderRadius: "8px",
+              maxWidth: "480px",
             }}
           />
-        </ActionIcon>
+          <ActionIcon
+            variant="filled"
+            color="white"
+            size="xl"
+            radius="xl"
+            style={{
+              position: "absolute",
+              bottom: rem(16),
+              right: rem(16),
+              border: "2px solid white",
+            }}
+            styles={{
+              root: {
+                backgroundColor: "white !important",
+                transition: "transform 0.2s",
+                "&:active": {
+                  transform: "scale(0.95)",
+                  backgroundColor: "white !important",
+                },
+                "&:hover": {
+                  backgroundColor: "white !important",
+                },
+              },
+            }}
+          >
+            <IconHeart
+              size={24}
+              style={{
+                stroke: "2px",
+                color: "var(--mantine-color-myColor-5)",
+              }}
+            />
+          </ActionIcon>
+        </Box>
       </Box>
 
       {/* Profile Details */}
       <Box mt="md">
-        <Card radius="md" p="md">
+        <Card radius="md" p="md" bg="white" withBorder={false}>
           <Stack gap="md">
             <Group>
               <IconBriefcase size={20} color="var(--mantine-color-gray-6)" />

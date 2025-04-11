@@ -5,6 +5,7 @@ import Auth from "./pages/Auth";
 import AppLayout from "./layouts/AppLayout";
 import Profile from "./pages/Profile";
 import AllLikes from "./pages/likes/AllLikes";
+import LikedUser from "./pages/likes/LikedUser";
 export const router = createBrowserRouter([
   {
     path: "/auth",
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
           {
             path: "/likes",
             element: <AllLikes />,
+          },
+          {
+            path: "/likes/:id",
+            element: <LikedUser />,
           },
         ],
       },

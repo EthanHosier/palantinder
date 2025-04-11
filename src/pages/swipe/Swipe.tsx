@@ -1,12 +1,13 @@
 import UserProfile from "./_components/UserProfile";
 import { User } from "../../types";
 import Searchbar from "./_components/Searchbar";
-import { ActionIcon, Loader, rem, Text } from "@mantine/core";
+import { ActionIcon, rem, Text, Container } from "@mantine/core";
 import { IconHeart, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import { useGetPersonFromName, useGetSimilarPersonsTo, handleSwipe } from "../../lib/queries";
 import { queryClient } from "../../lib/utils";
 import { useNameLocalStorage } from "../../lib/useNameLocalStorage";
+import MyLoader from "../../components/MyLoader";
 const Swipe = () => {
   const [index, setIndex] = useState(0);
   const [swipeLoading, setSwipeLoading] = useState(false);
@@ -36,7 +37,7 @@ const Swipe = () => {
   }
 
   if (currentPersonLoading || similarPersonsToLoading || similarPersonsToFetching) {
-    return <Loader />;
+    return <MyLoader />;
   }
 
   if (currentPersonError || similarPersonsToError) {
@@ -47,54 +48,59 @@ const Swipe = () => {
       style={{ position: "relative", minHeight: "100vh", marginBottom: 144 }}
     >
       <Searchbar />
-      <UserProfile user={{
-        id: currentlyShownPerson?.id ?? '',
-        name: currentlyShownPerson?.name ?? '',
-        role: currentlyShownPerson?.role ?? '',
-        startDate: currentlyShownPerson?.startDate ?? '',
-        location: currentlyShownPerson?.location ?? '',
-        lead: currentlyShownPerson?.lead ?? '',
-        slackLink: currentlyShownPerson?.slackLink ?? '',
-        about: currentlyShownPerson?.aboutMe ?? '',
-        interests: currentlyShownPerson?.interests?.split(';') ?? [],
-        affinityGroups: currentlyShownPerson?.affinityGroups?.split(';') ?? [],
-        imageUrl: currentlyShownPerson?.imageUrl ?? '',
-      } as User} />
-      <ActionIcon
-        loading={swipeLoading}
-        variant="filled"
-        color="white"
-        size={72}
-        radius={9999}
-        style={{
+      <Container size="sm" style={{ position: "relative" }}>
+        <UserProfile user={{
+          id: currentlyShownPerson?.id ?? '',
+          name: currentlyShownPerson?.name ?? '',
+          role: currentlyShownPerson?.role ?? '',
+          startDate: currentlyShownPerson?.startDate ?? '',
+          location: currentlyShownPerson?.location ?? '',
+          lead: currentlyShownPerson?.lead ?? '',
+          slackLink: currentlyShownPerson?.slackLink ?? '',
+          about: currentlyShownPerson?.aboutMe ?? '',
+          interests: currentlyShownPerson?.interests?.split(';') ?? [],
+          affinityGroups: currentlyShownPerson?.affinityGroups?.split(';') ?? [],
+          imageUrl: currentlyShownPerson?.imageUrl ?? '',
+        } as User} />
+        <div style={{
           position: "fixed",
           bottom: rem(80),
-          left: rem(16),
+          left: "50%",
+          transform: "translateX(-50%)",
+          display: "flex",
+          gap: rem(320),
           zIndex: 1000,
-          boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
-          padding: rem(16),
-        }}
-        onClick={() => onSwipe('dislike')}
-      >
-        <IconX size={16} color="black" />
-      </ActionIcon>
-      <ActionIcon
-        loading={swipeLoading}
-        variant="filled"
-        size={72}
-        radius={99999}
-        style={{
-          position: "fixed",
-          bottom: rem(80),
-          right: rem(16),
-          zIndex: 1000,
-          boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
-          padding: rem(16),
-        }}
-        onClick={() => onSwipe('like')}
-      >
-        <IconHeart size={16} color="white" />
-      </ActionIcon>
+          width: "fit-content"
+        }}>
+          <ActionIcon
+            loading={swipeLoading}
+            variant="filled"
+            color="white"
+            size={72}
+            radius={9999}
+            style={{
+              boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
+              padding: rem(16),
+            }}
+            onClick={() => onSwipe('dislike')}
+          >
+            <IconX size={24} color="black" />
+          </ActionIcon>
+          <ActionIcon
+            loading={swipeLoading}
+            variant="filled"
+            size={72}
+            radius={99999}
+            style={{
+              boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.2)",
+              padding: rem(16),
+            }}
+            onClick={() => onSwipe('like')}
+          >
+            <IconHeart size={24} color="white" />
+          </ActionIcon>
+        </div>
+      </Container>
     </div>
   );
 };

@@ -1,10 +1,9 @@
-import { Stack, Text, Group, ActionIcon, Loader } from "@mantine/core";
-import { IconHome, IconHeart, IconUser } from "@tabler/icons-react";
+import { Stack, Text } from "@mantine/core";
 import { User } from "../types";
 import UserProfile from "./swipe/_components/UserProfile";
 import { useGetPersonFromName, useGetSimilarPersonsTo } from "../lib/queries";
 import { useNameLocalStorage } from "../lib/useNameLocalStorage";
-
+import MyLoader from "../components/MyLoader";
 const myUser: User = {
   id: "1",
   name: "Ethan Hosier",
@@ -33,8 +32,8 @@ const Profile = () => {
   console.log({similarPersonsToError})
 
   if (isLoading) {
-    return <Loader />;
-  }
+    return <MyLoader />;
+  } 
 
   if (error) {
     return <Text>Error: {error.message}</Text>;
@@ -48,8 +47,7 @@ const Profile = () => {
   console.log({isLoading})
   console.log({error})
   return (
-    <>
-      <Stack>
+      <Stack mb={48}>
         <Text style={{ fontSize: 28, fontWeight: 600 }}>Profile</Text>
         <UserProfile user={{
           id: data.id,
@@ -65,30 +63,6 @@ const Profile = () => {
           imageUrl: data.imageUrl,
         }} />
       </Stack>
-
-      <Group
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          padding: "1rem",
-          justifyContent: "space-around",
-          backgroundColor: "white",
-          borderTop: "1px solid #eee",
-        }}
-      >
-        <ActionIcon variant="subtle" size="lg">
-          <IconHome size={24} />
-        </ActionIcon>
-        <ActionIcon variant="subtle" size="lg">
-          <IconHeart size={24} />
-        </ActionIcon>
-        <ActionIcon variant="subtle" size="lg">
-          <IconUser size={24} />
-        </ActionIcon>
-      </Group>
-    </>
   );
 };
 

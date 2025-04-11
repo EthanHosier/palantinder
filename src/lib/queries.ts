@@ -98,6 +98,14 @@ export const useGetSimilarPersonsTo = (userID: string) => {
     });
 };
 
+export const useGetUser = (userID: string) => {
+    return useQuery<PersonResponse, Error>({
+        queryKey: ['user', userID] as const,
+        queryFn: () => getUserFromId(userID),
+        enabled: !!userID,
+    });
+};
+
 export const useGetLikes = (userID: string) => {
     return useQuery<PersonResponse[], Error>({ 
         queryKey: ['likes', userID] as const, 
