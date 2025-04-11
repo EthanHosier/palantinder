@@ -8,6 +8,9 @@ import {
   ActionIcon,
   rem,
   Box,
+  Button,
+  Modal,
+  Divider,
 } from "@mantine/core";
 import {
   IconDots,
@@ -18,9 +21,45 @@ import {
   IconUsers,
   IconUser,
   IconQuote,
+  IconSparkles,
+  IconBrandSlack,
+  IconExternalLink,
+  IconChevronRight,
 } from "@tabler/icons-react";
+import { useState } from "react";
+import styles from './UserProfile.module.css';
 
 const UserProfile = ({ user }: { user: User }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  console.log({user})
+
+  // Generate conversation starters based on user profile
+  const getConversationStarters = () => {
+    const starters = [
+      `Ask about their role as ${user.role}`,
+      `Discuss their experience at the company since ${user.startDate}`,
+      `Share experiences about ${user.location}`,
+    ];
+
+    if (user.interests?.length > 0) {
+      user.interests.forEach(interest => {
+        if (interest) {
+          starters.push(`Talk about your shared interest in ${interest}`);
+        }
+      });
+    }
+
+    if (user.affinityGroups?.length > 0) {
+      user.affinityGroups.forEach(group => {
+        if (group) {
+          starters.push(`Connect over being part of ${group}`);
+        }
+      });
+    }
+
+    return starters;
+  };
+
   return (
     <Stack gap={0}>
       {/* Header with name and status */}
@@ -105,32 +144,6 @@ const UserProfile = ({ user }: { user: User }) => {
         </ActionIcon>
       </Box>
 
-      {/* Prompt Card */}
-      <Box mt="md">
-        <Card radius="md" p="md">
-          <Stack gap="xs" py="lg">
-            <Group gap="xs">
-              <div
-                style={{
-                  backgroundColor: "var(--mantine-color-gray-1)",
-                  padding: rem(8),
-                  borderRadius: 99999,
-                  height: rem(32),
-                }}
-              >
-                <IconQuote size={20} />
-              </div>
-              <Text size="sm" fw={600}>
-                You guys should talk about
-              </Text>
-            </Group>
-            <Text size="24px" fw={400} lh="32px">
-              Your shared passion for football{" "}
-            </Text>
-          </Stack>
-        </Card>
-      </Box>
-
       {/* Profile Details */}
       <Box mt="md">
         <Card radius="md" p="md">
@@ -147,26 +160,30 @@ const UserProfile = ({ user }: { user: User }) => {
               <IconMapPin size={20} color="var(--mantine-color-gray-6)" />
               <Text>{user.location}</Text>
             </Group>
-            <Group align="flex-start">
-              <IconHeart size={20} color="var(--mantine-color-gray-6)" />
-              <Group gap="xs" wrap="wrap">
+            {user.interests && user.interests.filter(x => !!x).length > 0 && (
+              <Group align="flex-start" wrap="nowrap">
+                <IconHeart size={20} color="var(--mantine-color-gray-6)" />
+                <Group gap="xs" wrap="wrap">
                 {user.interests?.map((interest: string, index: number) => (
                   <Badge key={index} variant="light">
                     {interest}
                   </Badge>
                 ))}
+                </Group>
               </Group>
-            </Group>
-            <Group align="flex-start">
-              <IconUsers size={20} color="var(--mantine-color-gray-6)" />
-              <Group gap="xs" wrap="wrap">
+            )}
+            {user.affinityGroups && user.affinityGroups.filter(x => !!x).length > 0 && (
+              <Group align="flex-start">
+                <IconUsers size={20} color="var(--mantine-color-gray-6)" />
+                <Group gap="xs" wrap="wrap">
                 {user.affinityGroups?.map((group: string, index: number) => (
                   <Badge key={index} variant="light">
                     {group}
                   </Badge>
                 ))}
+                </Group>
               </Group>
-            </Group>
+            )}
             <Group>
               <IconUser size={20} color="var(--mantine-color-gray-6)" />
               <Text>{user.lead}</Text>
@@ -174,6 +191,75 @@ const UserProfile = ({ user }: { user: User }) => {
           </Stack>
         </Card>
       </Box>
+
+       {/* Prompt Card */}
+       <Box mt="md">
+        <Card radius="md" p="md">
+          <Stack gap="xs" py="lg">
+            <Group gap="xs" justify="space-between" align="center">
+              <Group gap="xs">
+                <div
+                  style={{
+                    backgroundColor: "var(--mantine-color-gray-1)",
+                    padding: rem(8),
+                    borderRadius: 99999,
+                    height: rem(32),
+                  }}
+                >
+                  <IconQuote size={20} />
+                </div>
+                <Text size="sm" fw={600}>
+                  About me
+                </Text>
+              </Group>
+              <Button 
+                variant="light" 
+                size="xs" 
+                radius="full" 
+                leftSection={<IconSparkles size={14} />}
+                onClick={() => setIsModalOpen(true)}
+              >
+                Conversation Starters
+              </Button>
+            </Group>
+            <Text size="24px" fw={400} lh="32px">
+              {user.about}
+            </Text>
+          </Stack>
+        </Card>
+      </Box>
+
+      {/* Conversation Ideas Modal */}
+      <Modal
+        opened={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={
+          <Group gap="xs">
+            <IconSparkles size={20} />
+            <Text fw={600}>Conversation Starters</Text>
+          </Group>
+        }
+        size="md"
+      >
+        <Stack gap="md">
+          {getConversationStarters().map((starter, index) => (
+            <Card 
+              key={index} 
+              withBorder
+              onClick={() => window.open(user.slackLink === "" ? "https://slack.com/signin#/signin" : user.slackLink, '_blank')}
+              className={styles.conversationStarter}
+            >
+              <Group>
+                <Text style={{ flex: 1 }}>{starter}</Text>
+                <IconChevronRight 
+                  size={16}
+                  style={{ color: 'var(--mantine-color-gray-6)' }}
+                />
+              </Group>
+            </Card>
+          ))}
+        </Stack>
+      </Modal>
     </Stack>
   );
 };

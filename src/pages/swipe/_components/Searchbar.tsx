@@ -23,6 +23,7 @@ const Searchbar = () => {
               <IconFilter style={{ width: rem(16), height: rem(16) }} />
             </ActionIcon>
           }
+          disabled={true}
         />
       </Box>
     </Paper>

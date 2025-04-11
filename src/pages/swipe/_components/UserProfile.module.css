@@ -1,0 +1,8 @@
+.conversationStarter {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.conversationStarter:hover {
+  background-color: var(--mantine-color-primary-0);
+} 
