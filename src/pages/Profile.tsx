@@ -3,6 +3,7 @@ import { IconHome, IconHeart, IconUser } from "@tabler/icons-react";
 import { User } from "../types";
 import UserProfile from "./swipe/_components/UserProfile";
 import { useGetPersonFromName, useGetSimilarPersonsTo } from "../lib/queries";
+import { useNameLocalStorage } from "../lib/useNameLocalStorage";
 
 const myUser: User = {
   id: "1",
@@ -23,7 +24,8 @@ const myUser: User = {
 
 
 const Profile = () => {
-  const { data, isLoading, error } = useGetPersonFromName('Ethan Hosier');
+  const [name] = useNameLocalStorage();
+  const { data, isLoading, error } = useGetPersonFromName(name);
 
   const { data: similarPersonsTo, isLoading: similarPersonsToLoading, error: similarPersonsToError } = useGetSimilarPersonsTo(data?.id ?? '');
   console.log({similarPersonsTo})

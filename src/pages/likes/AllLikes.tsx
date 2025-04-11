@@ -7,11 +7,13 @@ import {
   Box,
   Group,
   Paper,
+  Loader,
 } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { User } from "../../types";
-
+import { useGetLikes, useGetPersonFromName } from "../../lib/queries";
+import { useNameLocalStorage } from "../../lib/useNameLocalStorage";
 const users: User[] = [
   {
     id: "1",
@@ -46,11 +48,24 @@ const users: User[] = [
 ];
 
 const AllLikes = () => {
+  const [name] = useNameLocalStorage();
+  const {data: currentUser, isLoading: currentUserLoading, error: currentUserError} = useGetPersonFromName(name);
+  const { data, isLoading, error } = useGetLikes(currentUser?.id ?? '');
+  console.log({ data, isLoading, error });
+  if (currentUserLoading || isLoading) {
+    return <Loader />;
+  }
+  if (currentUserError || error) {
+    return <Text>Error: {error?.message}</Text>;
+  }
+  if (!currentUser) {
+    return <Text>No user found</Text>;
+  }
   return (
     <Stack>
       <Text style={{ fontSize: 28, fontWeight: 600 }}>Liked</Text>
       <Grid>
-        {users.map((user) => (
+        {data?.map((user) => (
           <Grid.Col key={user.id} span={{ base: 6, sm: 4, md: 3 }}>
             <Paper radius="md">
               <Box ta="center">

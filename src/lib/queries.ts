@@ -1,7 +1,8 @@
 import { Osdk } from "@osdk/client";
 import { client } from "./osdk";
-import { getLikedPersonsBy, getPersonFromName, getSimilarPersonsTo, Person } from "@palantinder/sdk";
-import { useQuery } from '@tanstack/react-query';
+import { getLikedPersonsBy, getPersonFromName, getSimilarPersonsTo, handleSwipeAction, Person } from "@palantinder/sdk";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { queryClient } from "./utils";
 
 export type PersonResponse = {
     id: string
@@ -45,7 +46,9 @@ const getLikesQuery = async (userID: string) => {
     const result = await client(getLikedPersonsBy).executeFunction({
         userID
     });
-    return result;
+    return Promise.all(result.map(async (person) => {
+        return getUserFromId(person.$primaryKey);
+    }));
 };
 
 export const getSimilarPersonsToQuery = async (userID: string) => {
@@ -58,9 +61,28 @@ export const getSimilarPersonsToQuery = async (userID: string) => {
     return Promise.all(taskPromises);
 };
 
+export const handleSwipe = async (userID: string, personID: string, action: 'like' | 'dislike') => {
+    const result = await client(handleSwipeAction).applyAction(
+        {
+            swiperID: userID,
+            swipedID: personID,
+            didLike: action === 'like'
+        },
+        {
+            $returnEdits: true
+        }
+    );
+
+    if (result.type === "edits") {
+        const updatedObject = result.editedObjectTypes[0];
+        return updatedObject;
+    }
+    throw new Error("Unexpected response type");
+}
+
 export const useGetPersonFromName = (name: string) => {
     return useQuery<PersonResponse, Error>({
-        queryKey: ['person', name],
+        queryKey: ['person', name] as const,
         queryFn: () => getPersonFromNameQuery(name),
         enabled: !!name,
         refetchInterval: 99999999
@@ -69,8 +91,17 @@ export const useGetPersonFromName = (name: string) => {
 
 export const useGetSimilarPersonsTo = (userID: string) => {
     return useQuery<PersonResponse[], Error>({
-        queryKey: ['similarPersonsTo', userID],
+        queryKey: ['similarPersonsTo', userID] as const,
         queryFn: () => getSimilarPersonsToQuery(userID),
         enabled: !!userID,
+        cacheTime: 0,
     });
 };
+
+export const useGetLikes = (userID: string) => {
+    return useQuery<PersonResponse[], Error>({ 
+        queryKey: ['likes', userID] as const, 
+        queryFn: () => getLikesQuery(userID),
+        enabled: !!userID,
+    });
+};      

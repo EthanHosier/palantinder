@@ -4,24 +4,35 @@ import Searchbar from "./_components/Searchbar";
 import { ActionIcon, Loader, rem, Text } from "@mantine/core";
 import { IconHeart, IconX } from "@tabler/icons-react";
 import { useState } from "react";
-import { useGetPersonFromName, useGetSimilarPersonsTo } from "../../lib/queries";
+import { useGetPersonFromName, useGetSimilarPersonsTo, handleSwipe } from "../../lib/queries";
 import { queryClient } from "../../lib/utils";
-
+import { useNameLocalStorage } from "../../lib/useNameLocalStorage";
 const Swipe = () => {
   const [index, setIndex] = useState(0);
-  const { data: currentPerson, isLoading: currentPersonLoading, error: currentPersonError } = useGetPersonFromName("Ethan Hosier");
+  const [swipeLoading, setSwipeLoading] = useState(false);
+  const [name] = useNameLocalStorage();
+  const { data: currentPerson, isLoading: currentPersonLoading, error: currentPersonError } = useGetPersonFromName(name);
   const { data: similarPersonsTo, isLoading: similarPersonsToLoading, isFetching: similarPersonsToFetching, error: similarPersonsToError, refetch: refetchSimilarPersonsTo } = useGetSimilarPersonsTo(currentPerson?.id ?? '');
   const currentlyShownPerson = similarPersonsTo?.[index];
 
 
-  const onSwipe = (reaction: 'like' | 'dislike') => {
-    const nextIndex = index + 1;
-    if (nextIndex >= (similarPersonsTo?.length ?? 0)) {
-      refetchSimilarPersonsTo();
-      setIndex(0);
-      return;
+  const onSwipe = async (reaction: 'like' | 'dislike') => {
+    try {
+      setSwipeLoading(true);
+      await handleSwipe(currentPerson?.id ?? '', currentlyShownPerson?.id ?? '', reaction);
+      const nextIndex = index + 1;
+      if (nextIndex >= (similarPersonsTo?.length ?? 0)) {
+        refetchSimilarPersonsTo();
+        setIndex(0);
+        setSwipeLoading(false);
+        return;
+      }
+      setIndex(nextIndex);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSwipeLoading(false);
     }
-    setIndex(nextIndex);
   }
 
   if (currentPersonLoading || similarPersonsToLoading || similarPersonsToFetching) {
@@ -50,6 +61,7 @@ const Swipe = () => {
         imageUrl: currentlyShownPerson?.imageUrl ?? '',
       } as User} />
       <ActionIcon
+        loading={swipeLoading}
         variant="filled"
         color="white"
         size={72}
@@ -67,6 +79,7 @@ const Swipe = () => {
         <IconX size={16} color="black" />
       </ActionIcon>
       <ActionIcon
+        loading={swipeLoading}
         variant="filled"
         size={72}
         radius={99999}

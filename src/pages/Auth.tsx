@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const navigate = useNavigate();
+  
   useEffect(() => {
     const token = auth.getTokenOrUndefined();
     if (token) {
