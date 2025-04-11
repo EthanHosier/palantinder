@@ -193,6 +193,7 @@ const UserProfile = ({ user }: { user: User }) => {
       </Box>
 
        {/* Prompt Card */}
+       {!!user.about && 
        <Box mt="md">
         <Card radius="md" p="md">
           <Stack gap="xs" py="lg">
@@ -228,6 +229,7 @@ const UserProfile = ({ user }: { user: User }) => {
           </Stack>
         </Card>
       </Box>
+}
 
       {/* Conversation Ideas Modal */}
       <Modal
