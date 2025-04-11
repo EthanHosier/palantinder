@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.$ontologyRid = exports.$osdkMetadata = exports.$Queries = exports.getSimilarPersonsTo = exports.getPersonFromName = exports.getPerson = exports.getLikedPersonsBy = exports.$Objects = exports.Person = exports.MatchStatus = exports.$Interfaces = exports.$Actions = exports.handleSwipeAction = void 0;
+exports.$ontologyRid = exports.$osdkMetadata = exports.$Queries = exports.getSimilarPersonsTo = exports.getPersonFromName = exports.getPerson = exports.getLikedPersonsBy = exports.generateConversationTopics = exports.$Objects = exports.Person = exports.MatchStatus = exports.$Interfaces = exports.$Actions = exports.handleSwipeAction = void 0;
 var actions_js_1 = require("./ontology/actions.js");
 Object.defineProperty(exports, "handleSwipeAction", { enumerable: true, get: function () { return actions_js_1.handleSwipeAction; } });
 exports.$Actions = require("./ontology/actions.js");
@@ -10,6 +10,7 @@ Object.defineProperty(exports, "MatchStatus", { enumerable: true, get: function 
 Object.defineProperty(exports, "Person", { enumerable: true, get: function () { return objects_js_1.Person; } });
 exports.$Objects = require("./ontology/objects.js");
 var queries_js_1 = require("./ontology/queries.js");
+Object.defineProperty(exports, "generateConversationTopics", { enumerable: true, get: function () { return queries_js_1.generateConversationTopics; } });
 Object.defineProperty(exports, "getLikedPersonsBy", { enumerable: true, get: function () { return queries_js_1.getLikedPersonsBy; } });
 Object.defineProperty(exports, "getPerson", { enumerable: true, get: function () { return queries_js_1.getPerson; } });
 Object.defineProperty(exports, "getPersonFromName", { enumerable: true, get: function () { return queries_js_1.getPersonFromName; } });

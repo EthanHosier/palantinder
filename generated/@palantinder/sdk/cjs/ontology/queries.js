@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSimilarPersonsTo = exports.getPersonFromName = exports.getPerson = exports.getLikedPersonsBy = void 0;
+exports.getSimilarPersonsTo = exports.getPersonFromName = exports.getPerson = exports.getLikedPersonsBy = exports.generateConversationTopics = void 0;
+var generateConversationTopics_js_1 = require("./queries/generateConversationTopics.js");
+Object.defineProperty(exports, "generateConversationTopics", { enumerable: true, get: function () { return generateConversationTopics_js_1.generateConversationTopics; } });
 var getLikedPersonsBy_js_1 = require("./queries/getLikedPersonsBy.js");
 Object.defineProperty(exports, "getLikedPersonsBy", { enumerable: true, get: function () { return getLikedPersonsBy_js_1.getLikedPersonsBy; } });
 var getPerson_js_1 = require("./queries/getPerson.js");

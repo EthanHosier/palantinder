@@ -28,10 +28,27 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 import styles from './UserProfile.module.css';
+import { useGenerateConversationTopics, useGetPersonFromName } from "../../../lib/queries";
+import { useNameLocalStorage } from "../../../lib/useNameLocalStorage";
+import MyLoader from "../../../components/MyLoader";
 
 const UserProfile = ({ user }: { user: User }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   console.log({user})
+
+  const [name] = useNameLocalStorage();
+  const {data: currentUser, isLoading: currentUserLoading, error: currentUserError} = useGetPersonFromName(name);
+
+  const {data: conversationStarters, isLoading: conversationStartersLoading, error: conversationStartersError} = useGenerateConversationTopics(currentUser?.id ?? '', user.id, isModalOpen);
+
+
+  if (currentUserLoading) {
+    return <MyLoader />;
+  }
+
+  if (currentUserError) {
+    return <Text>Error: {currentUserError?.message}</Text>;
+  }
 
   // Generate conversation starters based on user profile
   const getConversationStarters = () => {
@@ -215,15 +232,17 @@ const UserProfile = ({ user }: { user: User }) => {
                   About me
                 </Text>
               </Group>
-              <Button 
-                variant="light" 
-                size="xs" 
-                radius="full" 
-                leftSection={<IconSparkles size={14} />}
-                onClick={() => setIsModalOpen(true)}
+              {currentUser?.id !== user.id && (
+                <Button 
+                  variant="light" 
+                  size="xs" 
+                  radius="full" 
+                  leftSection={<IconSparkles size={14} />}
+                  onClick={() => setIsModalOpen(true)}
               >
                 Conversation Starters
               </Button>
+              )}
             </Group>
             <Text size="24px" fw={400} lh="32px">
               {user.about}
@@ -246,7 +265,9 @@ const UserProfile = ({ user }: { user: User }) => {
         size="md"
       >
         <Stack gap="md">
-          {getConversationStarters().map((starter, index) => (
+          {conversationStartersLoading && <MyLoader />}
+          {conversationStartersError && <Text>Error: {conversationStartersError?.message}</Text>}
+          {conversationStarters?.map((starter, index) => (
             <Card 
               key={index} 
               withBorder

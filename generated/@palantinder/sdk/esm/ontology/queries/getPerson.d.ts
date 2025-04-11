@@ -20,7 +20,7 @@ export interface getPerson extends QueryDefinition<getPerson.Signature>, Version
         displayName: 'getPerson';
         rid: 'ri.function-registry.main.function.f0d1e747-460b-49c4-806a-83991259b0cc';
         type: 'query';
-        version: '1.2.1';
+        version: '1.6.0';
         parameters: {
             /**
              * (no ontology metadata)
@@ -40,7 +40,7 @@ export interface getPerson extends QueryDefinition<getPerson.Signature>, Version
     };
     apiName: 'getPerson';
     type: 'query';
-    version: '1.2.1';
+    version: '1.6.0';
     osdkMetadata: typeof $osdkMetadata;
 }
 export declare const getPerson: getPerson;

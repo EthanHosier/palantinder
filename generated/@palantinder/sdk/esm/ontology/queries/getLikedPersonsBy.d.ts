@@ -20,7 +20,7 @@ export interface getLikedPersonsBy extends QueryDefinition<getLikedPersonsBy.Sig
         displayName: 'getLikedPersonsBy';
         rid: 'ri.function-registry.main.function.8b9e0433-8ea7-4b8d-b9f8-db12338ee6d4';
         type: 'query';
-        version: '1.2.1';
+        version: '1.6.0';
         parameters: {
             /**
              * (no ontology metadata)
@@ -40,7 +40,7 @@ export interface getLikedPersonsBy extends QueryDefinition<getLikedPersonsBy.Sig
     };
     apiName: 'getLikedPersonsBy';
     type: 'query';
-    version: '1.2.1';
+    version: '1.6.0';
     osdkMetadata: typeof $osdkMetadata;
 }
 export declare const getLikedPersonsBy: getLikedPersonsBy;

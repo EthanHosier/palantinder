@@ -20,7 +20,7 @@ export interface getSimilarPersonsTo extends QueryDefinition<getSimilarPersonsTo
         displayName: 'getSimilarPersonsTo';
         rid: 'ri.function-registry.main.function.75d4b6c2-5a27-4872-b941-556332233c51';
         type: 'query';
-        version: '1.2.1';
+        version: '1.6.0';
         parameters: {
             /**
              * (no ontology metadata)
@@ -40,7 +40,7 @@ export interface getSimilarPersonsTo extends QueryDefinition<getSimilarPersonsTo
     };
     apiName: 'getSimilarPersonsTo';
     type: 'query';
-    version: '1.2.1';
+    version: '1.6.0';
     osdkMetadata: typeof $osdkMetadata;
 }
 export declare const getSimilarPersonsTo: getSimilarPersonsTo;

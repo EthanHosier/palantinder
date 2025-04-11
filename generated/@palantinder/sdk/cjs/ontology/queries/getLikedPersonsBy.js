@@ -5,6 +5,6 @@ const OntologyMetadata_js_1 = require("../../OntologyMetadata.js");
 exports.getLikedPersonsBy = {
     apiName: 'getLikedPersonsBy',
     type: 'query',
-    version: '1.2.1',
+    version: '1.6.0',
     osdkMetadata: OntologyMetadata_js_1.$osdkMetadata,
 };

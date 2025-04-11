@@ -1,8 +1,9 @@
 import { Osdk } from "@osdk/client";
 import { client } from "./osdk";
-import { getLikedPersonsBy, getPersonFromName, getSimilarPersonsTo, handleSwipeAction, Person } from "@palantinder/sdk";
+import { generateConversationTopics, getLikedPersonsBy, getPersonFromName, getSimilarPersonsTo, handleSwipeAction, Person } from "@palantinder/sdk";
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { queryClient } from "./utils";
+
 
 export type PersonResponse = {
     id: string
@@ -80,6 +81,14 @@ export const handleSwipe = async (userID: string, personID: string, action: 'lik
     throw new Error("Unexpected response type");
 }
 
+export const generateConversationTopicsQuery = async (user1: string, user2: string): Promise<string[]> => {
+    const result = await client(generateConversationTopics).executeFunction({
+        personFromId: user1,
+        personToId: user2
+    });
+    return result.replace(/['"]/g, '').split(';');
+}
+
 export const useGetPersonFromName = (name: string) => {
     return useQuery<PersonResponse, Error>({
         queryKey: ['person', name] as const,
@@ -113,3 +122,11 @@ export const useGetLikes = (userID: string) => {
         enabled: !!userID,
     });
 };      
+
+export const useGenerateConversationTopics = (user1: string, user2: string, enabled: boolean) => {
+    return useQuery<string[], Error>({
+        queryKey: ['conversationTopics', user1, user2] as const,
+        queryFn: () => generateConversationTopicsQuery(user1, user2),
+        enabled: !!user1 && !!user2 && enabled,
+    });
+};

@@ -20,7 +20,7 @@ export interface getPersonFromName extends QueryDefinition<getPersonFromName.Sig
         displayName: 'getPersonFromName';
         rid: 'ri.function-registry.main.function.0a7479f5-63b5-4b60-9da0-6b7c35627b3f';
         type: 'query';
-        version: '1.2.1';
+        version: '1.6.0';
         parameters: {
             /**
              * (no ontology metadata)
@@ -40,7 +40,7 @@ export interface getPersonFromName extends QueryDefinition<getPersonFromName.Sig
     };
     apiName: 'getPersonFromName';
     type: 'query';
-    version: '1.2.1';
+    version: '1.6.0';
     osdkMetadata: typeof $osdkMetadata;
 }
 export declare const getPersonFromName: getPersonFromName;
